@@ -21,7 +21,7 @@ const Section = styled.div`
   background-color: #0000ff13;
   width: 30%;
 `;
-const Personal = styled.h4`
+const Personal = styled.h6`
   margin: 0.2rem;
   padding: 0.3rem;
 `;
@@ -29,6 +29,7 @@ const ContentSection = styled(Section)`
   width: 80%;
   margin: 0.2rem 0.5rem;
   padding: 0.45rem;
+  font-size: 0.8rem;
 `;
 const ButtonMore = styled.button`
   border: none;

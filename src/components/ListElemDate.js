@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const Date = styled.div`
   padding: 0.38rem;
+  font-size: 0.8rem;
 `;
 
 const ListElemDate = (props) => {

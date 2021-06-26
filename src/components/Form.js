@@ -17,13 +17,22 @@ const InputArea = styled.div`
   justify-content: center;
   width: 100%;
 `;
-const Input = styled.input`
+const InputText = styled.input`
   width: 80%;
   height: 1.5rem;
-  background-color: #a0420311;
-  border: 1px solid #e75c0030;
+  background-color: ${(props) =>
+    props.validLength ? "#a0420311" : "#a0000034"};
+  border: 1px solid
+    ${(props) =>
+      props.validLength && props.isNameEmpty ? "#e75c0030" : "rgb(255, 0, 0, .7)"};
   border-radius: 0.3rem;
   margin: 0 0 0.6rem 1.5rem;
+`;
+const InputDate = styled(InputText)`
+  margin-left: 37%;
+  width: 45%;
+  background-color: #a0420311;
+  border: 1px solid ${(props) => (props.isDateEmpty ? "#e75c0030" : "rgb(255, 0, 0, .9)")};
 `;
 const Xbutton = styled.button`
   border: none;
@@ -38,7 +47,7 @@ const Xbutton = styled.button`
 `;
 const Label = styled.label`
   font-size: 0.8rem;
-  color: #0000ff94;
+  color: ${(props) => (props.validLength ? "#0000ff94" : "rgb(255, 0, 0, .9)")};
   margin-bottom: 0.3rem;
 `;
 const Button = styled.button`
@@ -57,7 +66,7 @@ const Button = styled.button`
     background-color: #0000ffa4;
   }
 `;
-const MainButton = styled(Button) `
+const MainButton = styled(Button)`
   width: 80%;
 `;
 
@@ -74,6 +83,10 @@ const Form = (props) => {
   const [inputDateValue, setInputDateValue] = useState("");
 
   const [isClicked, setIsClicked] = useState(false);
+  const [isValid, setIsValid] = useState(true);
+
+  const[isDateEmpty, setIsDateEmpty] = useState(false);
+  const[isNameEmpty, setIsNameEmpty] = useState(false);
 
   const readNameHandler = (event) => {
     setInputNameValue(event.target.value);
@@ -87,18 +100,22 @@ const Form = (props) => {
   const readDateHandler = (event) => {
     setInputDateValue(event.target.value);
   };
-  const clearNameInput = () => {
+  const clearNameInputHandler = () => {
     setInputNameValue("");
   };
-  const clearSurnameInput = () => {
+  const clearSurnameInputHandler = () => {
     setInputSurnameValue("");
   };
-  const clearContentInput = () => {
+  const clearContentInputHandler = () => {
     setInputContentValue("");
   };
+
   const addItemHandler = (event) => {
     event.preventDefault();
     if (
+      inputNameValue.length < 9 &&
+      inputSurnameValue.length < 9 &&
+      inputContentValue.length < 14 &&
       inputNameValue.trim() !== "" &&
       inputSurnameValue.trim() !== "" &&
       inputContentValue.trim() !== "" &&
@@ -110,20 +127,38 @@ const Form = (props) => {
         content: inputContentValue,
         date: new Date(inputDateValue),
       };
+      setIsValid(true);
       setIsClicked(false);
       props.onClickAdd(formListElement);
+      setInputNameValue("");
+      setInputSurnameValue("");
+      setInputContentValue("");
+      setInputDateValue("");
+    } else {
+      setIsValid(false);
     }
-    setInputNameValue("");
-    setInputSurnameValue("");
-    setInputContentValue("");
+    checkDateInput();
+    checkNameInput();
+  };
+
+  const checkDateInput = () => {
+    if(inputDateValue.trim() === "") {
+      setIsDateEmpty(true);
+    }
+  };
+  const checkNameInput = () => {
+    if(inputNameValue.trim() === "") {
+      setIsNameEmpty(true);
+    }
   };
 
   const showForm = () => {
     setIsClicked(true);
   };
   const hideForm = () => {
-    setIsClicked(false)
-  }
+    setIsClicked(false);
+    setIsValid(true);
+  };
 
   if (isClicked === false) {
     return (
@@ -137,43 +172,50 @@ const Form = (props) => {
 
   return (
     <Wrapper onSubmit={addItemHandler}>
-      <Label>Name: </Label>
+      <Label validLength={inputNameValue.length < 9}>Name: </Label>
       <InputArea>
-        <Input
+        <InputText
+          isNameEmpty = {!isNameEmpty}
+          // valid={!isValid}
+          validLength={inputNameValue.length < 9}
           type="text"
           value={inputNameValue}
           onChange={readNameHandler}
         />
-        <Xbutton type="button" onClick={clearNameInput}>
+        <Xbutton type="button" onClick={clearNameInputHandler}>
           <i className="fas fa-times"></i>
         </Xbutton>
       </InputArea>
-      <Label>Surname: </Label>
+      <Label validLength={inputSurnameValue.length < 9}>Surname: </Label>
       <InputArea>
-        <Input
+        <InputText
+          // valid={!isValid} 
+          validLength={inputSurnameValue.length < 9}
           type="text"
           value={inputSurnameValue}
           onChange={readSurnameHandler}
         />
-        <Xbutton type="button" onClick={clearSurnameInput}>
+        <Xbutton type="button" onClick={clearSurnameInputHandler}>
           <i className="fas fa-times"></i>
         </Xbutton>
       </InputArea>
-      <Label>Content: </Label>
+      <Label validLength={inputContentValue.length < 14}>Content: </Label>
       <InputArea>
-        <Input
+        <InputText
+          // valid={!isValid}
+          validLength={inputContentValue.length < 14}
           type="text"
           value={inputContentValue}
           onChange={readContentHandler}
         />
-        <Xbutton type="button" onClick={clearContentInput}>
+        <Xbutton type="button" onClick={clearContentInputHandler}>
           <i className="fas fa-times"></i>
         </Xbutton>
       </InputArea>
-      <Label>Date: </Label>
       <InputArea>
-        <Input type="date" onChange={readDateHandler} />
+        <InputDate isDateEmpty={!isDateEmpty} type="date" onChange={readDateHandler} />
       </InputArea>
+      {isValid ? ("") : (<p style={{ color: "red" }}>The form has empty fields !</p>)}
       <BotButtons>
         <Button onClick={props.clickAdd}>Add</Button>
         <Button onClick={hideForm}>Collapse</Button>
