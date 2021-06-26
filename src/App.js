@@ -15,6 +15,10 @@ const Wrapper = styled.div`
 `;
 const Header = styled.h1`
   padding: 0.5em;
+  width: 80%;
+  background-color: white;
+  border: 1px solid blue;
+  border-radius: 10px;
 `;
 
 function App() {
