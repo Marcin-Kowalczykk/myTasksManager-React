@@ -6,11 +6,11 @@ const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 60%;
+  width: 20rem;
   padding: 1rem;
   border-radius: 0.5rem;
   background-color: #00d9ff47;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
 `;
 const InputArea = styled.div`
   display: flex;
@@ -21,18 +21,40 @@ const InputText = styled.input`
   width: 80%;
   height: 1.5rem;
   background-color: ${(props) =>
-    props.validLength ? "#a0420311" : "#a0000034"};
-  border: 1px solid
+    props.validLength ? "#ffffffa7" : "#a0000034"};
+  border: 
     ${(props) =>
       (props.validLength && props.isNameEmpty) ||
       props.isSurnameEmpty ||
-      props.isContentEmpty
-        ? "#e75c0030"
-        : "rgb(255, 0, 0, .7)"};
+      props.isTitleEmpty
+        ? "none"
+        : "1px solid rgb(255, 0, 0, .7)"};
   border-radius: 0.3rem;
   margin: 0 0 0.6rem 1.5rem;
 `;
+const TextArea = styled.textarea`
+  font-family: "Times New Roman", Times, serif;
+  background-color: #ffffffa7;
+  border: ${props => props.isInstructionEmpty ? "none" : "1px solid rgb(255, 0, 0, .7)"};
+  border-radius: 5px;
+  margin: 0 0 3% 7%;
+  min-width: 80%;
+  max-width: 80%;
+  height: 4rem;
+`;
 const InputDate = styled(InputText)`
+  ::-webkit-datetime-edit-text {
+    color: #0000ff94;
+    padding: 0 0.1em;
+  }
+  ::-webkit-calendar-picker-indicator {
+    margin: 3px;
+    font-size: 0.6rem;
+    cursor: pointer;
+  }
+  text-align: center;
+  color: #0000ff94;
+  font-size: 0.7rem;
   margin-left: 37%;
   width: 45%;
   background-color: #a0420311;
@@ -84,15 +106,17 @@ const BotButtons = styled.div`
 const Form = (props) => {
   const [inputNameValue, setInputNameValue] = useState("");
   const [inputSurnameValue, setInputSurnameValue] = useState("");
-  const [inputContentValue, setInputContentValue] = useState("");
+  const [inputTitleValue, setInputTitleValue] = useState("");
   const [inputDateValue, setInputDateValue] = useState("");
+  const [inputInstructionValue, setInputInstructionValue] = useState("");
 
   const [isClicked, setIsClicked] = useState(false);
   const [isErrorText, setIsErrorText] = useState(false);
 
   const [isNameEmpty, setIsNameEmpty] = useState(false);
   const [isSurnameEmpty, setIsSurnameEmpty] = useState(false);
-  const [isContentEmpty, setIsContentEmpty] = useState(false);
+  const [isTitleEmpty, setIsTitleEmpty] = useState(false);
+  const [isInstructionEmpty, setInstructionEmpty] = useState(false);
   const [isDateEmpty, setIsDateEmpty] = useState(false);
 
   const readNameHandler = (event) => {
@@ -101,11 +125,14 @@ const Form = (props) => {
   const readSurnameHandler = (event) => {
     setInputSurnameValue(event.target.value);
   };
-  const readContentHandler = (event) => {
-    setInputContentValue(event.target.value);
+  const readTitleHandler = (event) => {
+    setInputTitleValue(event.target.value);
   };
   const readDateHandler = (event) => {
     setInputDateValue(event.target.value);
+  };
+  const readInstructionHandler = (event) => {
+    setInputInstructionValue(event.target.value);
   };
   const clearNameInputHandler = () => {
     setInputNameValue("");
@@ -113,8 +140,11 @@ const Form = (props) => {
   const clearSurnameInputHandler = () => {
     setInputSurnameValue("");
   };
-  const clearContentInputHandler = () => {
-    setInputContentValue("");
+  const clearTitleInputHandler = () => {
+    setInputTitleValue("");
+  };
+  const clearInstructionInputHandler = () => {
+    setInputInstructionValue("");
   };
 
   const addItemHandler = (event) => {
@@ -122,16 +152,17 @@ const Form = (props) => {
     if (
       inputNameValue.length < 9 &&
       inputSurnameValue.length < 9 &&
-      inputContentValue.length < 14 &&
+      inputTitleValue.length < 14 &&
       inputNameValue.trim() !== "" &&
       inputSurnameValue.trim() !== "" &&
-      inputContentValue.trim() !== "" &&
+      inputTitleValue.trim() !== "" &&
       inputDateValue.trim() !== ""
     ) {
       const formListElement = {
         name: inputNameValue,
         surrname: inputSurnameValue,
-        content: inputContentValue,
+        title: inputTitleValue,
+        instruction: inputInstructionValue,
         date: new Date(inputDateValue),
       };
       setIsErrorText(false);
@@ -143,8 +174,9 @@ const Form = (props) => {
     }
     checkInput(inputNameValue, setIsNameEmpty);
     checkInput(inputSurnameValue, setIsSurnameEmpty);
-    checkInput(inputContentValue, setIsContentEmpty);
+    checkInput(inputTitleValue, setIsTitleEmpty);
     checkInput(inputDateValue, setIsDateEmpty);
+    checkInput(inputInstructionValue, setInstructionEmpty);
   };
   const checkInput = (input, setter) => {
     input.trim() === "" ? setter(true) : setter(false);
@@ -154,14 +186,15 @@ const Form = (props) => {
   };
   const hideForm = () => {
     setIsClicked(false);
-    clearErrors(settersArray); 
+    clearErrors(settersArray);
     clearForm(inputSettersArray);
   };
   const inputSettersArray = [
     setInputNameValue,
     setInputSurnameValue,
-    setInputContentValue,
+    setInputTitleValue,
     setInputDateValue,
+    setInputInstructionValue,
   ];
   const clearForm = (inputsArray) => {
     inputsArray.forEach((element) => {
@@ -172,11 +205,12 @@ const Form = (props) => {
     setIsErrorText,
     setIsNameEmpty,
     setIsSurnameEmpty,
-    setIsContentEmpty,
+    setIsTitleEmpty,
     setIsDateEmpty,
+    setInstructionEmpty
   ];
   const clearErrors = (validSetter) => {
-    validSetter.forEach(element => {
+    validSetter.forEach((element) => {
       element(false);
     });
   };
@@ -197,7 +231,6 @@ const Form = (props) => {
       <InputArea>
         <InputText
           isNameEmpty={!isNameEmpty}
-          // valid={!isErrorText}
           validLength={inputNameValue.length < 9}
           type="text"
           value={inputNameValue}
@@ -211,7 +244,6 @@ const Form = (props) => {
       <InputArea>
         <InputText
           isSurnameEmpty={!isSurnameEmpty}
-          // valid={!isErrorText}
           validLength={inputSurnameValue.length < 9}
           type="text"
           value={inputSurnameValue}
@@ -221,17 +253,33 @@ const Form = (props) => {
           <i className="fas fa-times"></i>
         </Xbutton>
       </InputArea>
-      <Label validLength={inputContentValue.length < 14}>Content: </Label>
+      <Label validLength={inputTitleValue.length < 14}>Task title: </Label>
       <InputArea>
         <InputText
-          isContentEmpty={!isContentEmpty}
-          // valid={!isErrorText}
-          validLength={inputContentValue.length < 14}
+          isTitleEmpty={!isTitleEmpty}
+          validLength={inputTitleValue.length < 14}
           type="text"
-          value={inputContentValue}
-          onChange={readContentHandler}
+          value={inputTitleValue}
+          onChange={readTitleHandler}
         />
-        <Xbutton type="button" onClick={clearContentInputHandler}>
+        <Xbutton type="button" onClick={clearTitleInputHandler}>
+          <i className="fas fa-times"></i>
+        </Xbutton>
+      </InputArea>
+      <Label validLength={inputTitleValue.length < 100}>
+        Instruction for the task:
+      </Label>
+      <InputArea>
+        <TextArea
+          isInstructionEmpty={!isInstructionEmpty}
+          value={inputInstructionValue}
+          onChange={readInstructionHandler}
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+        ></TextArea>
+        <Xbutton type="button" onClick={clearInstructionInputHandler}>
           <i className="fas fa-times"></i>
         </Xbutton>
       </InputArea>

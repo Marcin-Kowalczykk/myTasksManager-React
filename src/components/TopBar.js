@@ -10,16 +10,23 @@ const Wrapper = styled.div`
 const Button = styled.button`
   border: none;
   border-radius: 8px;
-  background-color: #000000;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 0.6rem;
   margin-right: 1rem;
   cursor: pointer;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
+  transition: background-color .5s;
+
+  &:hover {
+    background-color: #8b8b8b3e;
+  }
 `;
 const Info = styled.button`
+color: #0000ffac;
   border: none;
   background: none;
-  font-size: 2rem;
+  font-size: 1.5rem;
   cursor: pointer;
 `;
 

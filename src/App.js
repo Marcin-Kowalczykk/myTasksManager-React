@@ -5,19 +5,19 @@ import styled from "styled-components";
 import "./App.css";
 import TopBar from "./components/TopBar";
 import Form from "./components/Form";
+import Filter from "./components/Filter";
 import ListOfElements from "./components/ListOfElements";
 
 const Wrapper = styled.div`
-  font-family: "Times New Roman", Times, serif;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 const Header = styled.h1`
   padding: 0.5em;
-  width: 80%;
+  width: 20rem;
   background-color: white;
-  border: 1px solid blue;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
 `;
 
@@ -28,14 +28,31 @@ function App() {
       id: "1",
       name: "Marcin",
       surrname: "Kowalczyk",
-      content: "zrobić pranie",
+      title: "zrobić pranie",
+      instruction: "30 stopni, 4 program",
       date: new Date(2021, 4, 17),
       label: 1,
     },
+    {
+      id: "2",
+      name: "Zuzanna",
+      surrname: "Czerniej",
+      title: "zakupy",
+      instruction: "30 stopni, 4 program",
+      date: new Date(2021, 4, 17),
+      label: 2,
+    },
+    {
+      id: "3",
+      name: "kamil",
+      surrname: "Kowalski",
+      title: "dupa cycki",
+      instruction: "30 stopni, 4 program",
+      date: new Date(2021, 4, 17),
+      label: 3,
+    },
   ];
   const [formListElements, setFormListElements] = useState(exampleListElements);
-
-  //const [isValid, setIsValid] = useState(false);
 
   const clickAdd = (formInput) => {
     const newObject = {
@@ -58,24 +75,32 @@ function App() {
     setFormListElements(exampleListElements);
   };
 
+  const [inputFilterValue, setInputFilterValue] = useState("");
+
+  const filterByName = (event) => {
+    setInputFilterValue(event.target.value);
+  };
+  const filteredArray = formListElements.filter((element) =>
+    element.name.toLowerCase().includes(inputFilterValue.toLowerCase())
+  );
+
   let content = (
     <ListOfElements
       onDeleteListElem={deleteListElem}
-      listElements={formListElements}
+      listElements={filteredArray}
     />
   );
 
-  // if (formListElements.length === 0) {
-  //   content = <p>No tasks found, please click Add new task</p>;
-  // }
+  if (formListElements.length === 0) {
+    content = <p>No tasks found, please click Add new task</p>;
+  }
 
   return (
     <Wrapper className="App">
-      <TopBar
-        onDeleteAllListElements={deleteAllListElements}
-      />
+      <TopBar onDeleteAllListElements={deleteAllListElements} />
       <Header>To Do Manager</Header>
       <Form onClickAdd={clickAdd} />
+      <Filter onFilterByName={filterByName} />
       {content}
     </Wrapper>
   );
@@ -83,14 +108,13 @@ function App() {
 
 export default App;
 
-// Logika przycisk usuwający wszystkie cele
+// edytowalne notatki
+// filtr po imionach lub nazwiskach
+// filtr po miesiącach/dniach
 
-// dodac rozszrzenie notatek
-
-// dodac warunki (style i komunikaty)
-
-// ostylować nagłówek
-// zmienic czcionke
+// pooprawic style
 // dodac animacje
+// instrulcja
+// czytelnosc kodu (skrócić kod)
 
 // ogarnac ten warunek z id
