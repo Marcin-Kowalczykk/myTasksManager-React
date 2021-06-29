@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 
 import styled from "styled-components";
+import { keyframes } from "styled-components";
 
+const wrapperAnimationShow = keyframes`
+  0% { opacity: 0.1; }
+  100% { opacity: 1; }
+  `;
 const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
@@ -11,6 +16,9 @@ const Wrapper = styled.form`
   border-radius: 0.5rem;
   background-color: #00d9ff47;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
+  animation-name: ${(props) =>
+    props.isClicked ? wrapperAnimationShow : false};
+  animation-duration: 1.5s;
 `;
 const InputArea = styled.div`
   display: flex;
@@ -22,20 +30,20 @@ const InputText = styled.input`
   height: 1.5rem;
   background-color: ${(props) =>
     props.validLength ? "#ffffffa7" : "#a0000034"};
-  border: 
-    ${(props) =>
-      (props.validLength && props.isNameEmpty) ||
-      props.isSurnameEmpty ||
-      props.isTitleEmpty
-        ? "none"
-        : "1px solid rgb(255, 0, 0, .7)"};
+  border: ${(props) =>
+    (props.validLength && props.isNameEmpty) ||
+    props.isSurnameEmpty ||
+    props.isTitleEmpty
+      ? "none"
+      : "1px solid rgb(255, 0, 0, .7)"};
   border-radius: 0.3rem;
   margin: 0 0 0.6rem 1.5rem;
 `;
 const TextArea = styled.textarea`
   font-family: "Times New Roman", Times, serif;
   background-color: #ffffffa7;
-  border: ${props => props.isInstructionEmpty ? "none" : "1px solid rgb(255, 0, 0, .7)"};
+  border: ${(props) =>
+    props.isInstructionEmpty ? "none" : "1px solid rgb(255, 0, 0, .7)"};
   border-radius: 5px;
   margin: 0 0 3% 7%;
   min-width: 80%;
@@ -70,6 +78,10 @@ const Xbutton = styled.button`
   &:hover {
     color: red;
     font-size: 1.5rem;
+
+    @media (max-width: 600px) {
+      font-size: 1rem;
+    }
   }
 `;
 const Label = styled.label`
@@ -150,8 +162,8 @@ const Form = (props) => {
   const addItemHandler = (event) => {
     event.preventDefault();
     if (
-      inputNameValue.length < 9 &&
-      inputSurnameValue.length < 9 &&
+      inputNameValue.length < 11 &&
+      inputSurnameValue.length < 11 &&
       inputTitleValue.length < 14 &&
       inputNameValue.trim() !== "" &&
       inputSurnameValue.trim() !== "" &&
@@ -160,7 +172,7 @@ const Form = (props) => {
     ) {
       const formListElement = {
         name: inputNameValue,
-        surrname: inputSurnameValue,
+        surname: inputSurnameValue,
         title: inputTitleValue,
         instruction: inputInstructionValue,
         date: new Date(inputDateValue),
@@ -207,7 +219,7 @@ const Form = (props) => {
     setIsSurnameEmpty,
     setIsTitleEmpty,
     setIsDateEmpty,
-    setInstructionEmpty
+    setInstructionEmpty,
   ];
   const clearErrors = (validSetter) => {
     validSetter.forEach((element) => {
@@ -217,7 +229,7 @@ const Form = (props) => {
 
   if (isClicked === false) {
     return (
-      <Wrapper>
+      <Wrapper isClicked={isClicked}>
         <MainButton type="button" onClick={showForm}>
           Add new task
         </MainButton>
@@ -226,12 +238,12 @@ const Form = (props) => {
   }
 
   return (
-    <Wrapper onSubmit={addItemHandler}>
-      <Label validLength={inputNameValue.length < 9}>Name: </Label>
+    <Wrapper isClicked={isClicked} onSubmit={addItemHandler}>
+      <Label validLength={inputNameValue.length < 11}>Name: </Label>
       <InputArea>
         <InputText
           isNameEmpty={!isNameEmpty}
-          validLength={inputNameValue.length < 9}
+          validLength={inputNameValue.length < 11}
           type="text"
           value={inputNameValue}
           onChange={readNameHandler}
@@ -240,11 +252,11 @@ const Form = (props) => {
           <i className="fas fa-times"></i>
         </Xbutton>
       </InputArea>
-      <Label validLength={inputSurnameValue.length < 9}>Surname: </Label>
+      <Label validLength={inputSurnameValue.length < 11}>Surname: </Label>
       <InputArea>
         <InputText
           isSurnameEmpty={!isSurnameEmpty}
-          validLength={inputSurnameValue.length < 9}
+          validLength={inputSurnameValue.length < 11}
           type="text"
           value={inputSurnameValue}
           onChange={readSurnameHandler}

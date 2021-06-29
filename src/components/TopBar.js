@@ -6,6 +6,10 @@ const Wrapper = styled.div`
   justify-content: center;
   padding: 1rem;
   align-self: flex-end;
+
+  @media (max-width: 600px) {
+    padding: 0.3rem;
+  }
 `;
 const Button = styled.button`
   border: none;
@@ -20,6 +24,10 @@ const Button = styled.button`
 
   &:hover {
     background-color: #8b8b8b3e;
+  }
+
+  @media (max-width: 600px) {
+    margin-right: 0.3rem;
   }
 `;
 const Info = styled.button`

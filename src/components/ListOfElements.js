@@ -13,7 +13,7 @@ const UlWrapper = styled.ul`
   padding: 0.1rem;
 
   @media (max-width: 600px) {
-    width: 100%;
+    width: 28rem;
 }
 `; 
 
@@ -25,7 +25,7 @@ const ListOfElements = (props) => {
           key={element.id}
           id={element.id}
           name={element.name}
-          surrname={element.surrname}
+          surname={element.surname}
           title={element.title}
           instruction={element.instruction}
           date={element.date}

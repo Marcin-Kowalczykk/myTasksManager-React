@@ -3,14 +3,25 @@ import styled from "styled-components";
 
 import ListElemDate from "./ListElemDate";
 import Note from "./Note";
+import { keyframes } from "styled-components";
 
+const animationShow = keyframes`
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+  `;
+const animationHide = keyframes`
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+`;
 const LiWrapper = styled.div`
   width: 80%;
+  animation: ${(props) => (props.cosi ? animationHide : animationShow)};
+  animation-duration: 1s;
+  animation-delay: infinity;
 `;
 
 const MainWrapper = styled.li`
   list-style: none;
-
   padding: 0.5rem;
   display: flex;
   justify-content: space-between;
@@ -54,9 +65,11 @@ const ButtonClose = styled(ButtonMore)`
 
 const ListElem = (props) => {
   const [isClicked, setIsClicked] = useState(false);
+  const [cosi, setCosi] = useState(false);
 
   const deleteTaskHandler = () => {
-    props.onDeleteTask(props.id);
+    setCosi(true);
+    setTimeout(() => props.onDeleteTask(props.id), 1000);
   };
 
   const showNoteHandler = () => {
@@ -67,11 +80,11 @@ const ListElem = (props) => {
   };
 
   return (
-    <LiWrapper>
+    <LiWrapper cosi={cosi}>
       <MainWrapper>
         <Section>
           <Personal>{props.name}</Personal>
-          <Personal>{props.surrname}</Personal>
+          <Personal>{props.surname}</Personal>
         </Section>
         <ContentSection>
           <p>
@@ -92,6 +105,7 @@ const ListElem = (props) => {
         instruction={props.instruction}
         isClicked={isClicked}
         onHideNote={hideNoteHandler}
+        animationShow={animationShow}
       />
     </LiWrapper>
   );

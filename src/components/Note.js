@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+
 import styled from "styled-components";
 
 const NoteWrapper = styled.div`
@@ -6,6 +7,8 @@ const NoteWrapper = styled.div`
   border-radius: 5px;
   margin-bottom: 0.5rem;
   display: ${(props) => (props.isClicked ? "block" : "none")};
+  animation: ${(props) => (props.isClicked ? props.animation : false)};
+  animation-duration: 1s;
 `;
 
 const TextArea = styled.textarea`
@@ -28,27 +31,22 @@ const Button = styled.button`
 `;
 
 const Note = (props) => {
-  /*
-  const [inputNoteValue, setInputNoteValue] = useState("");
+  const [inputNoteValue, setInputNoteValue] = useState(props.instruction);
 
   const inputNoteValueHandler = (event) => {
     setInputNoteValue(event.target.value);
   };
-  */
- const inputNoteValueHandler = () => {
-
- }
   const hideNoteHandler = () => {
     props.onHideNote();
   };
 
   return (
-    <NoteWrapper isClicked={props.isClicked}>
+    <NoteWrapper animation={props.animationShow} isClicked={props.isClicked}>
       <Button onClick={hideNoteHandler}>
         Less <i className="fas fa-angle-double-left"></i>
       </Button>
       <TextArea
-        value={props.instruction}
+        value={inputNoteValue}
         onChange={inputNoteValueHandler}
         name=""
         id=""

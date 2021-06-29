@@ -27,7 +27,7 @@ function App() {
     {
       id: "1",
       name: "Marcin",
-      surrname: "Kowalczyk",
+      surname: "Kowalczyk",
       title: "zrobić pranie",
       instruction: "30 stopni, 4 program",
       date: new Date(2021, 4, 17),
@@ -36,19 +36,19 @@ function App() {
     {
       id: "2",
       name: "Zuzanna",
-      surrname: "Czerniej",
+      surname: "Czerniej",
       title: "zakupy",
-      instruction: "30 stopni, 4 program",
-      date: new Date(2021, 4, 17),
+      instruction: "zara",
+      date: new Date(2019, 4, 17),
       label: 2,
     },
     {
       id: "3",
       name: "kamil",
-      surrname: "Kowalski",
+      surname: "Kowalski",
       title: "dupa cycki",
-      instruction: "30 stopni, 4 program",
-      date: new Date(2021, 4, 17),
+      instruction: "no dupa",
+      date: new Date(2020, 4, 17),
       label: 3,
     },
   ];
@@ -75,20 +75,52 @@ function App() {
     setFormListElements(exampleListElements);
   };
 
-  const [inputFilterValue, setInputFilterValue] = useState("");
+  const [inputFilterByPersonalValue, setInputFilterByPersonalValue] =
+    useState("");
+  const [inputFilterByTitleValue, setInputFilterByTitleValue] = useState("");
+  const [inputFilterByDateValue, setInputFilterByDateValue] = useState("");
 
-  const filterByName = (event) => {
-    setInputFilterValue(event.target.value);
+  const filterByPersonal = (event) => {
+    setInputFilterByPersonalValue(event.target.value);
   };
-  const filteredArray = formListElements.filter((element) =>
-    element.name.toLowerCase().includes(inputFilterValue.toLowerCase())
+  const filterByTitle = (event) => {
+    setInputFilterByTitleValue(event.target.value);
+  };
+  const filterByDate = (event) => {
+    setInputFilterByDateValue(event.target.value);
+  };
+  const filteredArrayByPersonal = formListElements.filter(
+    (element) =>
+      element.name
+        .toLowerCase()
+        .includes(inputFilterByPersonalValue.toLowerCase()) ||
+      element.surname
+        .toLowerCase()
+        .includes(inputFilterByPersonalValue.toLowerCase())
+  );
+  const filteredArrayByTitle = formListElements.filter((element) =>
+    element.title.toLowerCase().includes(inputFilterByTitleValue.toLowerCase())
+  );
+  const filteredArrayByDate = formListElements.filter((element) =>
+    element.date
+      .getFullYear()
+      .toString()
+      .toLowerCase()
+      .includes(inputFilterByDateValue.toLowerCase())
   );
 
+  let newArray;
+
+  if (inputFilterByPersonalValue.length > 0) {
+    newArray = filteredArrayByPersonal;
+  } else if (inputFilterByTitleValue.length > 0) {
+    newArray = filteredArrayByTitle;
+  } else {
+    newArray = filteredArrayByDate;
+  }
+
   let content = (
-    <ListOfElements
-      onDeleteListElem={deleteListElem}
-      listElements={filteredArray}
-    />
+    <ListOfElements onDeleteListElem={deleteListElem} listElements={newArray} />
   );
 
   if (formListElements.length === 0) {
@@ -100,7 +132,11 @@ function App() {
       <TopBar onDeleteAllListElements={deleteAllListElements} />
       <Header>To Do Manager</Header>
       <Form onClickAdd={clickAdd} />
-      <Filter onFilterByName={filterByName} />
+      <Filter
+        onFilterByPersonal={filterByPersonal}
+        onFilterByTitle={filterByTitle}
+        onFilterByDate={filterByDate}
+      />
       {content}
     </Wrapper>
   );
@@ -108,13 +144,7 @@ function App() {
 
 export default App;
 
-// edytowalne notatki
-// filtr po imionach lub nazwiskach
-// filtr po miesiącach/dniach
+// instrukcja
 
 // pooprawic style
-// dodac animacje
-// instrulcja
 // czytelnosc kodu (skrócić kod)
-
-// ogarnac ten warunek z id
