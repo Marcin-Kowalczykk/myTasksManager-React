@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 
 import styled from "styled-components";
+import GlobalStyle from "./GlobalStyled";
 
-import "./App.css";
 import TopBar from "./components/TopBar";
 import Form from "./components/Form";
 import Filter from "./components/Filter";
-import ListOfElements from "./components/ListOfElements";
+import ListOfElements from "./components/ListOfElements/ListOfElements";
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,22 +14,22 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 const Header = styled.h1`
-  padding: 0.5em;
-  width: 20rem;
-  background-color: white;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
+  color: #0000007a;
+  font-family: "Big Shoulders Stencil Display", cursive;
+  margin: 0 0;
 `;
 
 function App() {
   const exampleListElements = [
-    // to zniknie na pusta tablice
     {
       id: "1",
       name: "Marcin",
       surname: "Kowalczyk",
       title: "zrobić pranie",
-      instruction: "30 stopni, 4 program",
+      instruction: `      - płyn jakiś tam
+      - 30 stopni
+      - 4 program
+      - kolorowe rzeczy`,
       date: new Date(2021, 4, 17),
       label: 1,
     },
@@ -38,16 +38,20 @@ function App() {
       name: "Zuzanna",
       surname: "Czerniej",
       title: "zakupy",
-      instruction: "zara",
+      instruction: `zara:
+      -koszulki
+      -spodnie
+vans: 
+      -buty`,
       date: new Date(2019, 4, 17),
       label: 2,
     },
     {
       id: "3",
-      name: "kamil",
+      name: "Kamil",
       surname: "Kowalski",
-      title: "dupa cycki",
-      instruction: "no dupa",
+      title: "Praca dyplomowa",
+      instruction: "2 rozdziały ",
       date: new Date(2020, 4, 17),
       label: 3,
     },
@@ -72,7 +76,7 @@ function App() {
   };
 
   const deleteAllListElements = () => {
-    setFormListElements(exampleListElements);
+    setFormListElements([]);
   };
 
   const [inputFilterByPersonalValue, setInputFilterByPersonalValue] =
@@ -128,17 +132,20 @@ function App() {
   }
 
   return (
-    <Wrapper className="App">
-      <TopBar onDeleteAllListElements={deleteAllListElements} />
-      <Header>To Do Manager</Header>
-      <Form onClickAdd={clickAdd} />
-      <Filter
-        onFilterByPersonal={filterByPersonal}
-        onFilterByTitle={filterByTitle}
-        onFilterByDate={filterByDate}
-      />
-      {content}
-    </Wrapper>
+    <Fragment>
+      <GlobalStyle />
+      <Wrapper>
+        <TopBar onDeleteAllListElements={deleteAllListElements} />
+        <Header>To Do Manager</Header>
+        <Form onClickAdd={clickAdd} />
+        <Filter
+          onFilterByPersonal={filterByPersonal}
+          onFilterByTitle={filterByTitle}
+          onFilterByDate={filterByDate}
+        />
+        {content}
+      </Wrapper>
+    </Fragment>
   );
 }
 
@@ -146,5 +153,3 @@ export default App;
 
 // instrukcja
 
-// pooprawic style
-// czytelnosc kodu (skrócić kod)

@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const Date = styled.div`
-  padding: 0.38rem;
-  font-size: 0.8rem;
+  padding: 0.35rem;
+  font-size: 0.7rem;
 `;
 
 const ListElemDate = (props) => {

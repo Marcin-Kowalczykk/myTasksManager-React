@@ -11,11 +11,12 @@ const UlWrapper = styled.ul`
   align-items: center;
   width: 70%;
   padding: 0.1rem;
+  margin-top: 0;
 
   @media (max-width: 600px) {
     width: 28rem;
-}
-`; 
+  }
+`;
 
 const ListOfElements = (props) => {
   return (

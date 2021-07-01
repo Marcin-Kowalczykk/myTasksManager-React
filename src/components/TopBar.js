@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import BoxButtons from "./Ui/BoxButtons";
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
   padding: 1rem;
   align-self: flex-end;
 
@@ -11,27 +11,15 @@ const Wrapper = styled.div`
     padding: 0.3rem;
   }
 `;
-const Button = styled.button`
-  border: none;
-  border-radius: 8px;
-  background-color: white;
-  color: black;
-  padding: 0.6rem;
+const Button = styled.div`
+  padding: 0.5rem;
   margin-right: 1rem;
-  cursor: pointer;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
-  transition: background-color .5s;
-
-  &:hover {
-    background-color: #8b8b8b3e;
-  }
-
   @media (max-width: 600px) {
     margin-right: 0.3rem;
   }
 `;
 const Info = styled.button`
-color: #0000ffac;
+  color: #0000ff8d;
   border: none;
   background: none;
   font-size: 1.5rem;
@@ -44,7 +32,11 @@ const TopBar = (props) => {
   };
   return (
     <Wrapper>
-      <Button onClick={deleteAllHandler}>Clear All</Button>
+      <BoxButtons>
+        <Button type="button" onClick={deleteAllHandler}>
+          Clear All
+        </Button>
+      </BoxButtons>
       <Info>
         <i className="fas fa-info-circle"></i>
       </Info>

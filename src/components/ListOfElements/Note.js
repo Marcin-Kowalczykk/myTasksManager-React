@@ -3,16 +3,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const NoteWrapper = styled.div`
-  background-color: #00eeff58;
-  border-radius: 5px;
   margin-bottom: 0.5rem;
-  display: ${(props) => (props.isClicked ? "block" : "none")};
-  animation: ${(props) => (props.isClicked ? props.animation : false)};
+  display: ${(props) => (props.isClickedMore ? "block" : "none")};
+  animation: ${(props) => (props.isClickedMore ? props.animation : false)};
   animation-duration: 1s;
 `;
 
 const TextArea = styled.textarea`
-  font-family: "Times New Roman", Times, serif;
   background-color: #ffffffa7;
   border: none;
   border-radius: 5px;
@@ -20,14 +17,18 @@ const TextArea = styled.textarea`
   min-width: 95%;
   max-width: 95%;
   height: 3rem;
+  outline: none;
+  :focus {
+    border: 1px solid #0000ff54;
+  }
 `;
 const Button = styled.button`
   margin-top: 0.2rem;
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 0.7rem;
-  color: green;
+  font-size: 0.6rem;
+  color: #0000006c;
 `;
 
 const Note = (props) => {
@@ -41,15 +42,17 @@ const Note = (props) => {
   };
 
   return (
-    <NoteWrapper animation={props.animationShow} isClicked={props.isClicked}>
+    <NoteWrapper
+      className="global-wrappers"
+      animation={props.animationShow}
+      isClickedMore={props.isClickedMore}
+    >
       <Button onClick={hideNoteHandler}>
         Less <i className="fas fa-angle-double-left"></i>
       </Button>
       <TextArea
         value={inputNoteValue}
         onChange={inputNoteValueHandler}
-        name=""
-        id=""
         cols="30"
         rows="10"
       ></TextArea>
