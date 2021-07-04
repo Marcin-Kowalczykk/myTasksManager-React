@@ -48,25 +48,17 @@ const Input = styled.input`
   }
 `;
 
-const Filter = ({ onFilterByPersonal, onFilterByTitle, onFilterByDate }) => {
+const Filter = ({ onFilterByPersonal, onFilterByTitle, onFilterByYear }) => {
   const [isShowButton, setIsShowButton] = useState(false);
-
-  const hideFilterHandler = () => {
-    setIsShowButton(false);
-  };
-
-  const showFilterHandler = () => {
-    setIsShowButton(true);
-  };
 
   if (!isShowButton) {
     return (
       <BoxWrapper>
         <FilterWrapper showButtonClick={isShowButton}>
-          <ButtonShow onClick={showFilterHandler}>
-            Filter <i className="fas fa-compress"> </i>{' '}
-          </ButtonShow>{' '}
-        </FilterWrapper>{' '}
+          <ButtonShow onClick={() => setIsShowButton(true)}>
+            Filter <i className="fas fa-compress"></i>
+          </ButtonShow>
+        </FilterWrapper>
       </BoxWrapper>
     );
   }
@@ -74,20 +66,22 @@ const Filter = ({ onFilterByPersonal, onFilterByTitle, onFilterByDate }) => {
   return (
     <BoxWrapper>
       <FilterWrapper showButtonClick={isShowButton}>
-        <ButtonHide onClick={hideFilterHandler}>
-          <i className="fas fa-compress-arrows-alt"> </i>{' '}
-        </ButtonHide>{' '}
+        <ButtonHide onClick={() => setIsShowButton(false)}>
+          <i className="fas fa-compress-arrows-alt"></i>
+        </ButtonHide>
         <InputWrapper>
-          <Label> By personal: </Label>{' '}
+          <Label>By personal:</Label>
           <Input onChange={onFilterByPersonal} type="text" />
-        </InputWrapper>{' '}
+        </InputWrapper>
         <InputWrapper>
-          <Label> By title: </Label> <Input onChange={onFilterByTitle} type="text" />
-        </InputWrapper>{' '}
+          <Label>By title:</Label>
+          <Input onChange={onFilterByTitle} type="text" />
+        </InputWrapper>
         <InputWrapper>
-          <Label> By year: </Label> <Input onChange={onFilterByDate} type="text" />
-        </InputWrapper>{' '}
-      </FilterWrapper>{' '}
+          <Label>By year:</Label>
+          <Input onChange={onFilterByYear} type="text" />
+        </InputWrapper>
+      </FilterWrapper>
     </BoxWrapper>
   );
 };

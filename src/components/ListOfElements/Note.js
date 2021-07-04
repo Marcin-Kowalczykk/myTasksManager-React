@@ -35,10 +35,6 @@ const Button = styled.button`
 const Note = (props) => {
   const [inputNoteValue, setInputNoteValue] = useState(props.instruction);
 
-  const inputNoteValueHandler = (event) => {
-    setInputNoteValue(event.target.value);
-  };
-
   return (
     <NoteWrapper
       className="global-wrappers"
@@ -50,7 +46,7 @@ const Note = (props) => {
       </Button>
       <TextArea
         value={inputNoteValue}
-        onChange={inputNoteValueHandler}
+        onChange={(event) => setInputNoteValue(event.target.value)}
         cols="30"
         rows="10"
       />

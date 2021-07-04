@@ -16,6 +16,7 @@ const Wrapper = styled.div`
 const Button = styled.div`
   padding: 0.5rem;
   margin-right: 1rem;
+
   @media (max-width: 600px) {
     margin-right: 0.3rem;
   }

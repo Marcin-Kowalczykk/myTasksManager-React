@@ -130,6 +130,10 @@ const Form = ({ onClickAdd }) => {
   const [isInstructionEmpty, setInstructionEmpty] = useState(false);
   const [isDateEmpty, setIsDateEmpty] = useState(false);
 
+  const NAME_MAX_LENGTH = 11;
+  const SURNAME_MAX_LENGTH = 11;
+  const TITLE_MAX_LENGTH = 14;
+
   const inputSettersArray = [
     setInputNameValue,
     setInputSurnameValue,
@@ -147,26 +151,6 @@ const Form = ({ onClickAdd }) => {
     setInstructionEmpty,
   ];
 
-  const readNameHandler = (event) => {
-    setInputNameValue(event.target.value);
-  };
-
-  const readSurnameHandler = (event) => {
-    setInputSurnameValue(event.target.value);
-  };
-
-  const readTitleHandler = (event) => {
-    setInputTitleValue(event.target.value);
-  };
-
-  const readDateHandler = (event) => {
-    setInputDateValue(event.target.value);
-  };
-
-  const readInstructionHandler = (event) => {
-    setInputInstructionValue(event.target.value);
-  };
-
   const clearErrors = (validSetter) => {
     validSetter.forEach((element) => {
       element(false);
@@ -183,10 +167,6 @@ const Form = ({ onClickAdd }) => {
     });
   };
 
-  const showForm = () => {
-    setIsClicked(true);
-  };
-
   const hideForm = () => {
     setIsClicked(false);
     clearErrors(settersArray);
@@ -196,9 +176,9 @@ const Form = ({ onClickAdd }) => {
   const addItemHandler = (event) => {
     event.preventDefault();
     if (
-      inputNameValue.length < 11 &&
-      inputSurnameValue.length < 11 &&
-      inputTitleValue.length < 14 &&
+      inputNameValue.length < NAME_MAX_LENGTH &&
+      inputSurnameValue.length < SURNAME_MAX_LENGTH &&
+      inputTitleValue.length < TITLE_MAX_LENGTH &&
       inputNameValue.trim() !== '' &&
       inputSurnameValue.trim() !== '' &&
       inputTitleValue.trim() !== '' &&
@@ -230,7 +210,7 @@ const Form = ({ onClickAdd }) => {
       <BoxWrapper>
         <Wrapper isClicked={isClicked}>
           <BoxButtons>
-            <MainButton type="button" onClick={showForm}>
+            <MainButton type="button" onClick={() => setIsClicked(true)}>
               Add new task
             </MainButton>
           </BoxButtons>
@@ -242,27 +222,29 @@ const Form = ({ onClickAdd }) => {
   return (
     <BoxWrapper>
       <Wrapper isClicked={isClicked} onSubmit={addItemHandler}>
-        <Label validLength={inputNameValue.length < 11}>Name: </Label>
+        <Label validLength={inputNameValue.length < NAME_MAX_LENGTH}>Name: </Label>
         <InputArea>
           <InputText
             isNameEmpty={!isNameEmpty}
             validLength={inputNameValue.length < 11}
             type="text"
             value={inputNameValue}
-            onChange={readNameHandler}
+            onChange={(event) => setInputNameValue(event.target.value)}
           />
           <Xbutton type="button" onClick={() => setInputNameValue('')}>
             <i className="fas fa-times" />
           </Xbutton>
         </InputArea>
-        <Label validLength={inputSurnameValue.length < 11}>Surname: </Label>
+        <Label validLength={inputSurnameValue.length < SURNAME_MAX_LENGTH}>
+          Surname:
+        </Label>
         <InputArea>
           <InputText
             isSurnameEmpty={!isSurnameEmpty}
-            validLength={inputSurnameValue.length < 11}
+            validLength={inputSurnameValue.length < TITLE_MAX_LENGTH}
             type="text"
             value={inputSurnameValue}
-            onChange={readSurnameHandler}
+            onChange={(event) => setInputSurnameValue(event.target.value)}
           />
           <Xbutton type="button" onClick={() => setInputSurnameValue('')}>
             <i className="fas fa-times" />
@@ -275,7 +257,7 @@ const Form = ({ onClickAdd }) => {
             validLength={inputTitleValue.length < 14}
             type="text"
             value={inputTitleValue}
-            onChange={readTitleHandler}
+            onChange={(event) => setInputTitleValue(event.target.value)}
           />
           <Xbutton type="button" onClick={() => setInputTitleValue('')}>
             <i className="fas fa-times" />
@@ -288,7 +270,7 @@ const Form = ({ onClickAdd }) => {
           <TextArea
             isInstructionEmpty={!isInstructionEmpty}
             value={inputInstructionValue}
-            onChange={readInstructionHandler}
+            onChange={(event) => setInputInstructionValue(event.target.value)}
             name=""
             id=""
             cols="30"
@@ -302,7 +284,7 @@ const Form = ({ onClickAdd }) => {
           <InputDate
             isDateEmpty={!isDateEmpty}
             type="date"
-            onChange={readDateHandler}
+            onChange={(event) => setInputDateValue(event.target.value)}
           />
         </InputArea>
         {isErrorText ? (

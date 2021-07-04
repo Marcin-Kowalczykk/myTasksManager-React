@@ -75,14 +75,6 @@ const ListElem = ({ onDeleteTask, id, name, surname, title, date, instruction })
     setTimeout(() => onDeleteTask(id), 1000);
   };
 
-  const showNoteHandler = () => {
-    setIsClickedMore(true);
-  };
-
-  const hideNoteHandler = () => {
-    setIsClickedMore(false);
-  };
-
   return (
     <LiWrapper isClickedBtnX={isClickedBtnX}>
       <BoxWrapper>
@@ -94,7 +86,7 @@ const ListElem = ({ onDeleteTask, id, name, surname, title, date, instruction })
           <ContentSection>
             <p>
               {title}
-              <ButtonMore onClick={showNoteHandler}>
+              <ButtonMore onClick={() => setIsClickedMore(true)}>
                 More
                 <i className="fas fa-angle-double-right" />
               </ButtonMore>
@@ -112,7 +104,7 @@ const ListElem = ({ onDeleteTask, id, name, surname, title, date, instruction })
         <Note
           instruction={instruction}
           isClickedMore={isClickedMore}
-          onHideNote={hideNoteHandler}
+          onHideNote={() => setIsClickedMore(false)}
           animationShow={animationShow}
         />
       </BoxWrapper>
