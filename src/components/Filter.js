@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import BoxWrapper from "./Ui/BoxWrapper";
-import { keyframes } from "styled-components";
 
 const showAnimation = keyframes`
   0% {opacity: 0;}
   100% {opacity: 1;}
 `;
+
 const FilterWrapper = styled.div`
   width: ${(props) => (props.showButtonClick ? "16rem" : "5rem")};
   animation: ${(props) => (props.showButtonClick ? showAnimation : false)};
   animation-duration: 1s;
 `;
+
 const ButtonHide = styled.button`
   margin: 0 0 2% 91%;
   border: none;
@@ -20,19 +21,23 @@ const ButtonHide = styled.button`
   color: #0026ffac;
   font-size: 0.6rem;
 `;
+
 const ButtonShow = styled(ButtonHide)`
   margin: 0 0 0.1rem 0;
   font-size: 0.8rem;
 `;
+
 const InputWrapper = styled.div`
   margin: 0 0.5rem 0.5rem 0.5rem;
   display: flex;
   justify-content: space-between;
 `;
+
 const Label = styled.label`
   font-size: 0.8rem;
   color: #0000ff99;
 `;
+
 const Input = styled.input`
   border: none;
   border-radius: 5px;
@@ -43,12 +48,13 @@ const Input = styled.input`
   }
 `;
 
-const Filter = (props) => {
+const Filter = ({ onFilterByPersonal, onFilterByTitle, onFilterByDate }) => {
   const [isShowButton, setIsShowButton] = useState(false);
 
   const hideFilterHandler = () => {
     setIsShowButton(false);
   };
+
   const showFilterHandler = () => {
     setIsShowButton(true);
   };
@@ -73,15 +79,15 @@ const Filter = (props) => {
         </ButtonHide>{" "}
         <InputWrapper>
           <Label> By personal: </Label>{" "}
-          <Input onChange={props.onFilterByPersonal} type="text" />
+          <Input onChange={onFilterByPersonal} type="text" />
         </InputWrapper>{" "}
         <InputWrapper>
           <Label> By title: </Label>{" "}
-          <Input onChange={props.onFilterByTitle} type="text" />
+          <Input onChange={onFilterByTitle} type="text" />
         </InputWrapper>{" "}
         <InputWrapper>
           <Label> By year: </Label>{" "}
-          <Input onChange={props.onFilterByDate} type="text" />
+          <Input onChange={onFilterByDate} type="text" />
         </InputWrapper>{" "}
       </FilterWrapper>{" "}
     </BoxWrapper>

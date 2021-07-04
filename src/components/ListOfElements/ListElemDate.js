@@ -6,10 +6,10 @@ const Date = styled.div`
   font-size: 0.7rem;
 `;
 
-const ListElemDate = (props) => {
-  const month = props.date.toLocaleString("pl-PL", { month: "long" });
-  const day = props.date.toLocaleString("pl-PL", { day: "2-digit" });
-  const year = props.date.getFullYear();
+const ListElemDate = ({ date }) => {
+  const month = date.toLocaleString("pl-PL", { month: "long" });
+  const day = date.toLocaleString("pl-PL", { day: "2-digit" });
+  const year = date.getFullYear();
   return (
     <Date>
       <div>{day}</div>

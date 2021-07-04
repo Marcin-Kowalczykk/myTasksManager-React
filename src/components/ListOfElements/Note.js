@@ -22,6 +22,7 @@ const TextArea = styled.textarea`
     border: 1px solid #0000ff54;
   }
 `;
+
 const Button = styled.button`
   margin-top: 0.2rem;
   border: none;
@@ -37,9 +38,6 @@ const Note = (props) => {
   const inputNoteValueHandler = (event) => {
     setInputNoteValue(event.target.value);
   };
-  const hideNoteHandler = () => {
-    props.onHideNote();
-  };
 
   return (
     <NoteWrapper
@@ -47,15 +45,15 @@ const Note = (props) => {
       animation={props.animationShow}
       isClickedMore={props.isClickedMore}
     >
-      <Button onClick={hideNoteHandler}>
-        Less <i className="fas fa-angle-double-left"></i>
+      <Button onClick={() => props.onHideNote()}>
+        Less <i className="fas fa-angle-double-left" />
       </Button>
       <TextArea
         value={inputNoteValue}
         onChange={inputNoteValueHandler}
         cols="30"
         rows="10"
-      ></TextArea>
+      />
     </NoteWrapper>
   );
 };

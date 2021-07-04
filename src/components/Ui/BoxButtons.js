@@ -10,7 +10,6 @@ const Buttons = styled.button`
   margin-right: 0.2rem;
   cursor: pointer;
   transition: background-color 0.5s;
-  
 
   &:hover {
     background-color: #0000ffa4;

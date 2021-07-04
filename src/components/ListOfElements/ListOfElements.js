@@ -18,24 +18,22 @@ const UlWrapper = styled.ul`
   }
 `;
 
-const ListOfElements = (props) => {
-  return (
-    <UlWrapper>
-      {props.listElements.map((element) => (
-        <ListElem
-          key={element.id}
-          id={element.id}
-          name={element.name}
-          surname={element.surname}
-          title={element.title}
-          instruction={element.instruction}
-          date={element.date}
-          label={element.label}
-          onDeleteTask={props.onDeleteListElem}
-        />
-      ))}
-    </UlWrapper>
-  );
-};
+const ListOfElements = ({ onDeleteListElem, listElements }) => (
+  <UlWrapper>
+    {listElements.map((element) => (
+      <ListElem
+        key={element.id}
+        id={element.id}
+        name={element.name}
+        surname={element.surname}
+        title={element.title}
+        instruction={element.instruction}
+        date={element.date}
+        label={element.label}
+        onDeleteTask={onDeleteListElem}
+      />
+    ))}
+  </UlWrapper>
+);
 
 export default ListOfElements;

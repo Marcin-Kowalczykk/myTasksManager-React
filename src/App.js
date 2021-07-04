@@ -3,6 +3,7 @@ import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import GlobalStyle from "./GlobalStyled";
 
+import { exampleListElements } from "./components/ExampleList";
 import TopBar from "./components/TopBar";
 import Form from "./components/Form";
 import Filter from "./components/Filter";
@@ -13,6 +14,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
 const Header = styled.h1`
   color: #0000007a;
   font-family: "Big Shoulders Stencil Display", cursive;
@@ -20,52 +22,18 @@ const Header = styled.h1`
 `;
 
 function App() {
-  const exampleListElements = [
-    {
-      id: "1",
-      name: "Marcin",
-      surname: "Kowalczyk",
-      title: "zrobić pranie",
-      instruction: `      - płyn jakiś tam
-      - 30 stopni
-      - 4 program
-      - kolorowe rzeczy`,
-      date: new Date(2021, 4, 17),
-      label: 1,
-    },
-    {
-      id: "2",
-      name: "Zuzanna",
-      surname: "Czerniej",
-      title: "zakupy",
-      instruction: `zara:
-      -koszulki
-      -spodnie
-vans: 
-      -buty`,
-      date: new Date(2019, 4, 17),
-      label: 2,
-    },
-    {
-      id: "3",
-      name: "Kamil",
-      surname: "Kowalski",
-      title: "Praca dyplomowa",
-      instruction: "2 rozdziały ",
-      date: new Date(2020, 4, 17),
-      label: 3,
-    },
-  ];
   const [formListElements, setFormListElements] = useState(exampleListElements);
+  const [inputFilterByPersonalValue, setInputFilterByPersonalValue] =
+    useState("");
+  const [inputFilterByTitleValue, setInputFilterByTitleValue] = useState("");
+  const [inputFilterByDateValue, setInputFilterByDateValue] = useState("");
 
   const clickAdd = (formInput) => {
     const newObject = {
       ...formInput,
       id: Math.random().toString(),
     };
-    setFormListElements((previous) => {
-      return [newObject, ...previous];
-    });
+    setFormListElements((previous) => [newObject, ...previous]);
   };
 
   const deleteListElem = (elementId) => {
@@ -79,22 +47,20 @@ vans:
     setFormListElements([]);
   };
 
-  const [inputFilterByPersonalValue, setInputFilterByPersonalValue] =
-    useState("");
-  const [inputFilterByTitleValue, setInputFilterByTitleValue] = useState("");
-  const [inputFilterByDateValue, setInputFilterByDateValue] = useState("");
-
   const filterByPersonal = (event) => {
     setInputFilterByPersonalValue(event.target.value);
   };
+
   const filterByTitle = (event) => {
     setInputFilterByTitleValue(event.target.value);
   };
+
   const filterByDate = (event) => {
     setInputFilterByDateValue(event.target.value);
   };
+
   const filteredArrayByPersonal = formListElements.filter(
-    (element) =>
+    (element) => 
       element.name
         .toLowerCase()
         .includes(inputFilterByPersonalValue.toLowerCase()) ||
@@ -102,9 +68,11 @@ vans:
         .toLowerCase()
         .includes(inputFilterByPersonalValue.toLowerCase())
   );
+
   const filteredArrayByTitle = formListElements.filter((element) =>
     element.title.toLowerCase().includes(inputFilterByTitleValue.toLowerCase())
   );
+
   const filteredArrayByDate = formListElements.filter((element) =>
     element.date
       .getFullYear()
@@ -152,4 +120,3 @@ vans:
 export default App;
 
 // instrukcja
-

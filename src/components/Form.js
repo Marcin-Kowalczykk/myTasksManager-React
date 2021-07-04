@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import BoxButtons from "./Ui/BoxButtons";
 import BoxWrapper from "./Ui/BoxWrapper";
-import { keyframes } from "styled-components";
 
 const wrapperAnimationShow = keyframes`
   0% { opacity: 0.1; }
   100% { opacity: 1; }
-  `;
+`;
+
 const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
@@ -19,11 +19,13 @@ const Wrapper = styled.form`
     props.isClicked ? wrapperAnimationShow : false};
   animation-duration: 1.5s;
 `;
+
 const InputArea = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
 `;
+
 const InputText = styled.input`
   width: 80%;
   height: 1.5rem;
@@ -42,6 +44,7 @@ const InputText = styled.input`
     border: 1px solid #0000ff54;
   }
 `;
+
 const TextArea = styled.textarea`
   background-color: #ffffffa7;
   border: ${(props) =>
@@ -56,6 +59,7 @@ const TextArea = styled.textarea`
     border: 1px solid #0000ff54;
   }
 `;
+
 const InputDate = styled(InputText)`
   ::-webkit-calendar-picker-indicator {
     margin: 1rem;
@@ -71,6 +75,7 @@ const InputDate = styled(InputText)`
   border: 1px solid
     ${(props) => (props.isDateEmpty ? "#a0420311" : "rgb(255, 0, 0, .9)")};
 `;
+
 const Xbutton = styled.button`
   border: none;
   background: none;
@@ -90,24 +95,28 @@ const Xbutton = styled.button`
     color: red;
   }
 `;
+
 const Label = styled.label`
   font-size: 0.8rem;
   color: ${(props) => (props.validLength ? "#0000ff94" : "rgb(255, 0, 0, .9)")};
   margin-bottom: 0.3rem;
 `;
+
 const Button = styled.div`
   width: 5rem;
   padding: 0.3rem;
 `;
+
 const MainButton = styled(Button)`
   width: 10rem;
 `;
+
 const BotButtons = styled.div`
   margin: 0.5rem 0 0.3rem 0;
   align-self: flex-end;
 `;
 
-const Form = (props) => {
+const Form = ({ onClickAdd }) => {
   const [inputNameValue, setInputNameValue] = useState("");
   const [inputSurnameValue, setInputSurnameValue] = useState("");
   const [inputTitleValue, setInputTitleValue] = useState("");
@@ -123,32 +132,67 @@ const Form = (props) => {
   const [isInstructionEmpty, setInstructionEmpty] = useState(false);
   const [isDateEmpty, setIsDateEmpty] = useState(false);
 
+  const inputSettersArray = [
+    setInputNameValue,
+    setInputSurnameValue,
+    setInputTitleValue,
+    setInputDateValue,
+    setInputInstructionValue,
+  ];
+
+  const settersArray = [
+    setIsErrorText,
+    setIsNameEmpty,
+    setIsSurnameEmpty,
+    setIsTitleEmpty,
+    setIsDateEmpty,
+    setInstructionEmpty,
+  ];
+
   const readNameHandler = (event) => {
     setInputNameValue(event.target.value);
   };
+
   const readSurnameHandler = (event) => {
     setInputSurnameValue(event.target.value);
   };
+
   const readTitleHandler = (event) => {
     setInputTitleValue(event.target.value);
   };
+
   const readDateHandler = (event) => {
     setInputDateValue(event.target.value);
   };
+
   const readInstructionHandler = (event) => {
     setInputInstructionValue(event.target.value);
   };
-  const clearNameInputHandler = () => {
-    setInputNameValue("");
+
+  const clearErrors = (validSetter) => {
+    validSetter.forEach((element) => {
+      element(false);
+    });
   };
-  const clearSurnameInputHandler = () => {
-    setInputSurnameValue("");
+
+  const checkInput = (input, setter) => {
+    input.trim() === "" ? setter(true) : setter(false);
   };
-  const clearTitleInputHandler = () => {
-    setInputTitleValue("");
+
+  const clearForm = (inputsArray) => {
+    inputsArray.forEach((element) => {
+      element("");
+    });
   };
-  const clearInstructionInputHandler = () => {
-    setInputInstructionValue("");
+
+  const showForm = () => {
+    setIsClicked(true);
+  };
+
+  const hideForm = () => {
+    setIsClicked(false);
+    clearErrors(settersArray);
+    clearForm(inputSettersArray);
   };
 
   const addItemHandler = (event) => {
@@ -171,7 +215,7 @@ const Form = (props) => {
       };
       setIsErrorText(false);
       setIsClicked(false);
-      props.onClickAdd(formListElement);
+      onClickAdd(formListElement);
       clearForm(inputSettersArray);
     } else {
       setIsErrorText(true);
@@ -181,42 +225,6 @@ const Form = (props) => {
     checkInput(inputTitleValue, setIsTitleEmpty);
     checkInput(inputDateValue, setIsDateEmpty);
     checkInput(inputInstructionValue, setInstructionEmpty);
-  };
-  const checkInput = (input, setter) => {
-    input.trim() === "" ? setter(true) : setter(false);
-  };
-  const showForm = () => {
-    setIsClicked(true);
-  };
-  const hideForm = () => {
-    setIsClicked(false);
-    clearErrors(settersArray);
-    clearForm(inputSettersArray);
-  };
-  const inputSettersArray = [
-    setInputNameValue,
-    setInputSurnameValue,
-    setInputTitleValue,
-    setInputDateValue,
-    setInputInstructionValue,
-  ];
-  const clearForm = (inputsArray) => {
-    inputsArray.forEach((element) => {
-      element("");
-    });
-  };
-  const settersArray = [
-    setIsErrorText,
-    setIsNameEmpty,
-    setIsSurnameEmpty,
-    setIsTitleEmpty,
-    setIsDateEmpty,
-    setInstructionEmpty,
-  ];
-  const clearErrors = (validSetter) => {
-    validSetter.forEach((element) => {
-      element(false);
-    });
   };
 
   if (isClicked === false) {
@@ -245,8 +253,8 @@ const Form = (props) => {
             value={inputNameValue}
             onChange={readNameHandler}
           />
-          <Xbutton type="button" onClick={clearNameInputHandler}>
-            <i className="fas fa-times"></i>
+          <Xbutton type="button" onClick={() => setInputNameValue("")}>
+            <i className="fas fa-times" />
           </Xbutton>
         </InputArea>
         <Label validLength={inputSurnameValue.length < 11}>Surname: </Label>
@@ -258,8 +266,8 @@ const Form = (props) => {
             value={inputSurnameValue}
             onChange={readSurnameHandler}
           />
-          <Xbutton type="button" onClick={clearSurnameInputHandler}>
-            <i className="fas fa-times"></i>
+          <Xbutton type="button" onClick={() => setInputSurnameValue("")}>
+            <i className="fas fa-times" />
           </Xbutton>
         </InputArea>
         <Label validLength={inputTitleValue.length < 14}>Task title: </Label>
@@ -271,8 +279,8 @@ const Form = (props) => {
             value={inputTitleValue}
             onChange={readTitleHandler}
           />
-          <Xbutton type="button" onClick={clearTitleInputHandler}>
-            <i className="fas fa-times"></i>
+          <Xbutton type="button" onClick={() => setInputTitleValue("")}>
+            <i className="fas fa-times" />
           </Xbutton>
         </InputArea>
         <Label validLength={inputTitleValue.length < 100}>
@@ -287,9 +295,9 @@ const Form = (props) => {
             id=""
             cols="30"
             rows="10"
-          ></TextArea>
-          <Xbutton type="button" onClick={clearInstructionInputHandler}>
-            <i className="fas fa-times"></i>
+          />
+          <Xbutton type="button" onClick={() => setInputInstructionValue("")}>
+            <i className="fas fa-times" />
           </Xbutton>
         </InputArea>
         <InputArea>
@@ -306,14 +314,10 @@ const Form = (props) => {
         )}
         <BotButtons>
           <BoxButtons>
-            <Button className="global-buttons" onClick={props.clickAdd}>
-              Add
-            </Button>
+            <Button onClick={addItemHandler}>Add</Button>
           </BoxButtons>
           <BoxButtons>
-            <Button className="global-buttons" onClick={hideForm}>
-              Collapse
-            </Button>
+            <Button onClick={hideForm}>Collapse</Button>
           </BoxButtons>
         </BotButtons>
       </Wrapper>
@@ -322,5 +326,3 @@ const Form = (props) => {
 };
 
 export default Form;
-
-// czy moge jakos w jednej funkcji czyscic ten przycisk ktory chce

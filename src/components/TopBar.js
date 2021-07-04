@@ -1,6 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import BoxButtons from "./Ui/BoxButtons";
+import React from 'react';
+import styled from 'styled-components';
+
+import BoxButtons from './Ui/BoxButtons';
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,6 +12,7 @@ const Wrapper = styled.div`
     padding: 0.3rem;
   }
 `;
+
 const Button = styled.div`
   padding: 0.5rem;
   margin-right: 1rem;
@@ -18,6 +20,7 @@ const Button = styled.div`
     margin-right: 0.3rem;
   }
 `;
+
 const Info = styled.button`
   color: #0000ff8d;
   border: none;
@@ -30,6 +33,7 @@ const TopBar = (props) => {
   const deleteAllHandler = () => {
     props.onDeleteAllListElements();
   };
+
   return (
     <Wrapper>
       <BoxButtons>
@@ -38,7 +42,7 @@ const TopBar = (props) => {
         </Button>
       </BoxButtons>
       <Info>
-        <i className="fas fa-info-circle"></i>
+        <i className="fas fa-info-circle" />
       </Info>
     </Wrapper>
   );
