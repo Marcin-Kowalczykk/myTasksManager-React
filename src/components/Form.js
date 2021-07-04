@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import styled, { keyframes } from "styled-components";
-import BoxButtons from "./Ui/BoxButtons";
-import BoxWrapper from "./Ui/BoxWrapper";
+import styled, { keyframes } from 'styled-components';
+import BoxButtons from './Ui/BoxButtons';
+import BoxWrapper from './Ui/BoxWrapper';
 
 const wrapperAnimationShow = keyframes`
   0% { opacity: 0.1; }
@@ -15,8 +15,7 @@ const Wrapper = styled.form`
   align-items: center;
   width: 20rem;
   padding: 1rem;
-  animation-name: ${(props) =>
-    props.isClicked ? wrapperAnimationShow : false};
+  animation-name: ${(props) => (props.isClicked ? wrapperAnimationShow : false)};
   animation-duration: 1.5s;
 `;
 
@@ -30,14 +29,13 @@ const InputText = styled.input`
   width: 80%;
   height: 1.5rem;
   outline: none;
-  background-color: ${(props) =>
-    props.validLength ? "#ffffffa7" : "#a0000034"};
+  background-color: ${(props) => (props.validLength ? '#ffffffa7' : '#a0000034')};
   border: ${(props) =>
     (props.validLength && props.isNameEmpty) ||
     props.isSurnameEmpty ||
     props.isTitleEmpty
-      ? "none"
-      : "1px solid rgb(255, 0, 0, .7)"};
+      ? 'none'
+      : '1px solid rgb(255, 0, 0, .7)'};
   border-radius: 0.3rem;
   margin: 0 0 0.6rem 1.5rem;
   :focus {
@@ -48,7 +46,7 @@ const InputText = styled.input`
 const TextArea = styled.textarea`
   background-color: #ffffffa7;
   border: ${(props) =>
-    props.isInstructionEmpty ? "none" : "1px solid rgb(255, 0, 0, .7)"};
+    props.isInstructionEmpty ? 'none' : '1px solid rgb(255, 0, 0, .7)'};
   border-radius: 0.3rem;
   margin: 0 0 0.6rem 1.5rem;
   min-width: 80%;
@@ -73,7 +71,7 @@ const InputDate = styled(InputText)`
   width: 45%;
   background-color: #a0420311;
   border: 1px solid
-    ${(props) => (props.isDateEmpty ? "#a0420311" : "rgb(255, 0, 0, .9)")};
+    ${(props) => (props.isDateEmpty ? '#a0420311' : 'rgb(255, 0, 0, .9)')};
 `;
 
 const Xbutton = styled.button`
@@ -98,7 +96,7 @@ const Xbutton = styled.button`
 
 const Label = styled.label`
   font-size: 0.8rem;
-  color: ${(props) => (props.validLength ? "#0000ff94" : "rgb(255, 0, 0, .9)")};
+  color: ${(props) => (props.validLength ? '#0000ff94' : 'rgb(255, 0, 0, .9)')};
   margin-bottom: 0.3rem;
 `;
 
@@ -117,11 +115,11 @@ const BotButtons = styled.div`
 `;
 
 const Form = ({ onClickAdd }) => {
-  const [inputNameValue, setInputNameValue] = useState("");
-  const [inputSurnameValue, setInputSurnameValue] = useState("");
-  const [inputTitleValue, setInputTitleValue] = useState("");
-  const [inputDateValue, setInputDateValue] = useState("");
-  const [inputInstructionValue, setInputInstructionValue] = useState("");
+  const [inputNameValue, setInputNameValue] = useState('');
+  const [inputSurnameValue, setInputSurnameValue] = useState('');
+  const [inputTitleValue, setInputTitleValue] = useState('');
+  const [inputDateValue, setInputDateValue] = useState('');
+  const [inputInstructionValue, setInputInstructionValue] = useState('');
 
   const [isClicked, setIsClicked] = useState(false);
   const [isErrorText, setIsErrorText] = useState(false);
@@ -176,12 +174,12 @@ const Form = ({ onClickAdd }) => {
   };
 
   const checkInput = (input, setter) => {
-    input.trim() === "" ? setter(true) : setter(false);
+    input.trim() === '' ? setter(true) : setter(false);
   };
 
   const clearForm = (inputsArray) => {
     inputsArray.forEach((element) => {
-      element("");
+      element('');
     });
   };
 
@@ -201,10 +199,10 @@ const Form = ({ onClickAdd }) => {
       inputNameValue.length < 11 &&
       inputSurnameValue.length < 11 &&
       inputTitleValue.length < 14 &&
-      inputNameValue.trim() !== "" &&
-      inputSurnameValue.trim() !== "" &&
-      inputTitleValue.trim() !== "" &&
-      inputDateValue.trim() !== ""
+      inputNameValue.trim() !== '' &&
+      inputSurnameValue.trim() !== '' &&
+      inputTitleValue.trim() !== '' &&
+      inputDateValue.trim() !== ''
     ) {
       const formListElement = {
         name: inputNameValue,
@@ -253,7 +251,7 @@ const Form = ({ onClickAdd }) => {
             value={inputNameValue}
             onChange={readNameHandler}
           />
-          <Xbutton type="button" onClick={() => setInputNameValue("")}>
+          <Xbutton type="button" onClick={() => setInputNameValue('')}>
             <i className="fas fa-times" />
           </Xbutton>
         </InputArea>
@@ -266,7 +264,7 @@ const Form = ({ onClickAdd }) => {
             value={inputSurnameValue}
             onChange={readSurnameHandler}
           />
-          <Xbutton type="button" onClick={() => setInputSurnameValue("")}>
+          <Xbutton type="button" onClick={() => setInputSurnameValue('')}>
             <i className="fas fa-times" />
           </Xbutton>
         </InputArea>
@@ -279,7 +277,7 @@ const Form = ({ onClickAdd }) => {
             value={inputTitleValue}
             onChange={readTitleHandler}
           />
-          <Xbutton type="button" onClick={() => setInputTitleValue("")}>
+          <Xbutton type="button" onClick={() => setInputTitleValue('')}>
             <i className="fas fa-times" />
           </Xbutton>
         </InputArea>
@@ -296,7 +294,7 @@ const Form = ({ onClickAdd }) => {
             cols="30"
             rows="10"
           />
-          <Xbutton type="button" onClick={() => setInputInstructionValue("")}>
+          <Xbutton type="button" onClick={() => setInputInstructionValue('')}>
             <i className="fas fa-times" />
           </Xbutton>
         </InputArea>
@@ -308,9 +306,9 @@ const Form = ({ onClickAdd }) => {
           />
         </InputArea>
         {isErrorText ? (
-          <p style={{ color: "red" }}>The form has empty fields !</p>
+          <p style={{ color: 'red' }}>The form has empty fields !</p>
         ) : (
-          ""
+          ''
         )}
         <BotButtons>
           <BoxButtons>

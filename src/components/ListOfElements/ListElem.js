@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import styled, { keyframes } from "styled-components";
-import BoxWrapper from "../Ui/BoxWrapper";
+import styled, { keyframes } from 'styled-components';
+import BoxWrapper from '../Ui/BoxWrapper';
 
-import ListElemDate from "./ListElemDate";
-import Note from "./Note";
+import ListElemDate from './ListElemDate';
+import Note from './Note';
 
 const animationShow = keyframes`
   0% { opacity: 0; }
@@ -18,8 +18,7 @@ const animationHide = keyframes`
 
 const LiWrapper = styled.div`
   width: 80%;
-  animation: ${(props) =>
-    props.isClickedBtnX ? animationHide : animationShow};
+  animation: ${(props) => (props.isClickedBtnX ? animationHide : animationShow)};
   animation-duration: 1s;
 `;
 
@@ -67,15 +66,7 @@ const ButtonClose = styled(ButtonMore)`
   }
 `;
 
-const ListElem = ({
-  onDeleteTask,
-  id,
-  name,
-  surname,
-  title,
-  date,
-  instruction,
-}) => {
+const ListElem = ({ onDeleteTask, id, name, surname, title, date, instruction }) => {
   const [isClickedMore, setIsClickedMore] = useState(false);
   const [isClickedBtnX, setIsClickedBtnX] = useState(false);
 

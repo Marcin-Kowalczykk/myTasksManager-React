@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import ListElem from "./ListElem";
+import ListElem from './ListElem';
 
 const UlWrapper = styled.ul`
   display: flex;

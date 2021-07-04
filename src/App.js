@@ -1,13 +1,13 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState } from 'react';
 
-import styled from "styled-components";
-import GlobalStyle from "./GlobalStyled";
+import styled from 'styled-components';
+import GlobalStyle from './GlobalStyled';
 
-import { exampleListElements } from "./components/ExampleList";
-import TopBar from "./components/TopBar";
-import Form from "./components/Form";
-import Filter from "./components/Filter";
-import ListOfElements from "./components/ListOfElements/ListOfElements";
+import { exampleListElements } from './components/ExampleList';
+import TopBar from './components/TopBar';
+import Form from './components/Form';
+import Filter from './components/Filter';
+import ListOfElements from './components/ListOfElements/ListOfElements';
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,16 +17,15 @@ const Wrapper = styled.div`
 
 const Header = styled.h1`
   color: #0000007a;
-  font-family: "Big Shoulders Stencil Display", cursive;
+  font-family: 'Big Shoulders Stencil Display', cursive;
   margin: 0 0;
 `;
 
 function App() {
   const [formListElements, setFormListElements] = useState(exampleListElements);
-  const [inputFilterByPersonalValue, setInputFilterByPersonalValue] =
-    useState("");
-  const [inputFilterByTitleValue, setInputFilterByTitleValue] = useState("");
-  const [inputFilterByDateValue, setInputFilterByDateValue] = useState("");
+  const [inputFilterByPersonalValue, setInputFilterByPersonalValue] = useState('');
+  const [inputFilterByTitleValue, setInputFilterByTitleValue] = useState('');
+  const [inputFilterByDateValue, setInputFilterByDateValue] = useState('');
 
   const clickAdd = (formInput) => {
     const newObject = {
@@ -60,7 +59,7 @@ function App() {
   };
 
   const filteredArrayByPersonal = formListElements.filter(
-    (element) => 
+    (element) =>
       element.name
         .toLowerCase()
         .includes(inputFilterByPersonalValue.toLowerCase()) ||

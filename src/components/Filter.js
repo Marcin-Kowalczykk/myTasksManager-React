@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
-import BoxWrapper from "./Ui/BoxWrapper";
+import React, { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
+import BoxWrapper from './Ui/BoxWrapper';
 
 const showAnimation = keyframes`
   0% {opacity: 0;}
@@ -8,7 +8,7 @@ const showAnimation = keyframes`
 `;
 
 const FilterWrapper = styled.div`
-  width: ${(props) => (props.showButtonClick ? "16rem" : "5rem")};
+  width: ${(props) => (props.showButtonClick ? '16rem' : '5rem')};
   animation: ${(props) => (props.showButtonClick ? showAnimation : false)};
   animation-duration: 1s;
 `;
@@ -64,9 +64,9 @@ const Filter = ({ onFilterByPersonal, onFilterByTitle, onFilterByDate }) => {
       <BoxWrapper>
         <FilterWrapper showButtonClick={isShowButton}>
           <ButtonShow onClick={showFilterHandler}>
-            Filter <i className="fas fa-compress"> </i>{" "}
-          </ButtonShow>{" "}
-        </FilterWrapper>{" "}
+            Filter <i className="fas fa-compress"> </i>{' '}
+          </ButtonShow>{' '}
+        </FilterWrapper>{' '}
       </BoxWrapper>
     );
   }
@@ -75,21 +75,19 @@ const Filter = ({ onFilterByPersonal, onFilterByTitle, onFilterByDate }) => {
     <BoxWrapper>
       <FilterWrapper showButtonClick={isShowButton}>
         <ButtonHide onClick={hideFilterHandler}>
-          <i className="fas fa-compress-arrows-alt"> </i>{" "}
-        </ButtonHide>{" "}
+          <i className="fas fa-compress-arrows-alt"> </i>{' '}
+        </ButtonHide>{' '}
         <InputWrapper>
-          <Label> By personal: </Label>{" "}
+          <Label> By personal: </Label>{' '}
           <Input onChange={onFilterByPersonal} type="text" />
-        </InputWrapper>{" "}
+        </InputWrapper>{' '}
         <InputWrapper>
-          <Label> By title: </Label>{" "}
-          <Input onChange={onFilterByTitle} type="text" />
-        </InputWrapper>{" "}
+          <Label> By title: </Label> <Input onChange={onFilterByTitle} type="text" />
+        </InputWrapper>{' '}
         <InputWrapper>
-          <Label> By year: </Label>{" "}
-          <Input onChange={onFilterByDate} type="text" />
-        </InputWrapper>{" "}
-      </FilterWrapper>{" "}
+          <Label> By year: </Label> <Input onChange={onFilterByDate} type="text" />
+        </InputWrapper>{' '}
+      </FilterWrapper>{' '}
     </BoxWrapper>
   );
 };

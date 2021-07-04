@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const NoteWrapper = styled.div`
   margin-bottom: 0.5rem;
-  display: ${(props) => (props.isClickedMore ? "block" : "none")};
+  display: ${(props) => (props.isClickedMore ? 'block' : 'none')};
   animation: ${(props) => (props.isClickedMore ? props.animation : false)};
   animation-duration: 1s;
 `;
