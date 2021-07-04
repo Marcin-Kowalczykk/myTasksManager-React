@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import GlobalStyle from './GlobalStyled';
 
 import { exampleListElements } from './components/ExampleList';
@@ -8,6 +8,15 @@ import TopBar from './components/TopBar';
 import Form from './components/Form';
 import Filter from './components/Filter';
 import ListOfElements from './components/ListOfElements/ListOfElements';
+
+const HeaderAnimation = keyframes`
+  0% { opacity: 0.6; }
+  50% { opacity: 0.75; }
+  100% { opacity: 1; }
+  0% { color: #0000ff55; }
+  50% { color: #0000ff76; }
+  100% { color: #0000007a; }
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,7 +27,8 @@ const Wrapper = styled.div`
 const Header = styled.h1`
   color: #0000007a;
   font-family: 'Big Shoulders Stencil Display', cursive;
-  margin: 0 0;
+  margin: 0 0 5px 0;
+  animation: ${HeaderAnimation} 4s infinite;
 `;
 
 function App() {
