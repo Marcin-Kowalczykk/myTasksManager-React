@@ -8,6 +8,8 @@ const Buttons = styled.button`
   border: none;
   border-radius: 0.5rem;
   margin-right: 0.2rem;
+  width: 5rem;
+  padding: 0.3rem;
   cursor: pointer;
   transition: background-color 0.5s;
 
@@ -19,8 +21,10 @@ const Buttons = styled.button`
   }
 `;
 
-const BoxButtons = ({ children, className }) => (
-  <Buttons className={className}>{children}</Buttons>
+const BoxButtons = ({ children, className, type, onClick }) => (
+  <Buttons className={className} type={type || 'button'} onClick={onClick}>
+    {children}
+  </Buttons>
 );
 
 export default BoxButtons;

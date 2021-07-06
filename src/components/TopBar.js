@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Button = styled.div`
+const Button = styled(BoxButtons)`
   padding: 0.5rem;
   margin-right: 1rem;
 
@@ -37,11 +37,9 @@ const TopBar = (props) => {
 
   return (
     <Wrapper>
-      <BoxButtons>
-        <Button type="button" onClick={deleteAllHandler}>
-          Clear All
-        </Button>
-      </BoxButtons>
+      <Button type="button" onClick={deleteAllHandler}>
+        Clear All
+      </Button>
       <Info>
         <i className="fas fa-info-circle" />
       </Info>

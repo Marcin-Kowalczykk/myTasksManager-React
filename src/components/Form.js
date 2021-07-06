@@ -100,12 +100,7 @@ const Label = styled.label`
   margin-bottom: 0.3rem;
 `;
 
-const Button = styled.div`
-  width: 5rem;
-  padding: 0.3rem;
-`;
-
-const MainButton = styled(Button)`
+const MainButton = styled(BoxButtons)`
   width: 10rem;
 `;
 
@@ -209,11 +204,9 @@ const Form = ({ onClickAdd }) => {
     return (
       <BoxWrapper>
         <Wrapper isClicked={isClicked}>
-          <BoxButtons>
-            <MainButton type="button" onClick={() => setIsClicked(true)}>
-              Add new task
-            </MainButton>
-          </BoxButtons>
+          <MainButton type="button" onClick={() => setIsClicked(true)}>
+            Add new task
+          </MainButton>
         </Wrapper>
       </BoxWrapper>
     );
@@ -293,12 +286,8 @@ const Form = ({ onClickAdd }) => {
           ''
         )}
         <BotButtons>
-          <BoxButtons>
-            <Button onClick={addItemHandler}>Add</Button>
-          </BoxButtons>
-          <BoxButtons>
-            <Button onClick={hideForm}>Collapse</Button>
-          </BoxButtons>
+          <BoxButtons onClick={addItemHandler}>Add</BoxButtons>
+          <BoxButtons onClick={hideForm}>Collapse</BoxButtons>
         </BotButtons>
       </Wrapper>
     </BoxWrapper>
