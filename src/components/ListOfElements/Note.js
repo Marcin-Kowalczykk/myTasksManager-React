@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const wrapperAnimationShow = keyframes`
+  0% {  margin-left: 20rem; }
+  100% { margin-left: 0; }
+`;
 
 const NoteWrapper = styled.div`
   margin-bottom: 0.5rem;
+  animation: ${wrapperAnimationShow} 1s;
   display: ${(props) => (props.isClickedMore ? 'block' : 'none')};
-  animation: ${(props) => (props.isClickedMore ? props.animation : false)};
-  animation-duration: 1s;
 `;
 
 const TextArea = styled.textarea`
@@ -36,11 +40,7 @@ const Note = (props) => {
   const [inputNoteValue, setInputNoteValue] = useState(props.instruction);
 
   return (
-    <NoteWrapper
-      className="global-wrappers"
-      animation={props.animationShow}
-      isClickedMore={props.isClickedMore}
-    >
+    <NoteWrapper className="global-wrappers" isClickedMore={props.isClickedMore}>
       <Button onClick={() => props.onHideNote()}>
         Less <i className="fas fa-angle-double-left" />
       </Button>

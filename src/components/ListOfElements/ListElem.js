@@ -7,8 +7,8 @@ import ListElemDate from './ListElemDate';
 import Note from './Note';
 
 const animationShow = keyframes`
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% { margin-bottom: -10rem; }
+  100% { margin-bottom: 0; }
   `;
 
 const animationHide = keyframes`
@@ -105,7 +105,6 @@ const ListElem = ({ onDeleteTask, id, name, surname, title, date, instruction })
           instruction={instruction}
           isClickedMore={isClickedMore}
           onHideNote={() => setIsClickedMore(false)}
-          animationShow={animationShow}
         />
       </BoxWrapper>
     </LiWrapper>

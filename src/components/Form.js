@@ -5,8 +5,15 @@ import BoxButtons from './Ui/BoxButtons';
 import BoxWrapper from './Ui/BoxWrapper';
 
 const wrapperAnimationShow = keyframes`
-  0% { opacity: 0.1; }
+  0% { opacity: 0.1;}
   100% { opacity: 1; }
+  0% { margin-top: -300px; }
+  100% { margin-top: 0px; }
+`;
+
+const wrapperAnimationShow2 = keyframes`
+  0% {  margin-left: 20rem; }
+  100% { margin-left: 0; }
 `;
 
 const Wrapper = styled.form`
@@ -15,8 +22,9 @@ const Wrapper = styled.form`
   align-items: center;
   width: 20rem;
   padding: 1rem;
-  animation-name: ${(props) => (props.isClicked ? wrapperAnimationShow : false)};
-  animation-duration: 1.5s;
+  animation-name: ${(props) =>
+    props.isClicked ? wrapperAnimationShow : wrapperAnimationShow2};
+  animation-duration: 0.5s;
 `;
 
 const InputArea = styled.div`
